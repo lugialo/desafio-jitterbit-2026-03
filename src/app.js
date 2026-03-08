@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
+import Routes from "./routes/index.js";
 
 class App {
   constructor() {
@@ -8,6 +9,12 @@ class App {
     this.port = parseInt(process.env.SERVER_PORT) || 3333;
     this.app.use(express.json());
     this.handleCors();
+    this.initRoutes();
+  }
+
+  initRoutes() {
+    const routes = new Routes();
+    this.app.use(routes.orderRoutes);
   }
 
   handleCors() {
