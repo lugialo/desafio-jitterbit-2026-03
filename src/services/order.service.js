@@ -1,7 +1,6 @@
 import Order from "../models/Order.js";
 
 class OrderService {
-
   async createOrder(orderData) {
     const order = await Order.create(orderData);
     return order;
@@ -13,6 +12,11 @@ class OrderService {
       throw new Error("Pedido não encontrado.");
     }
     return order;
+  }
+
+  async listOrders() {
+    const orders = await Order.find();
+    return orders;
   }
 }
 
