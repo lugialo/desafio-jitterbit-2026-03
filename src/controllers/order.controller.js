@@ -20,6 +20,16 @@ class OrderController {
       }
     }
   };
+
+  get = async (req, res) => {
+    try {
+      const orderId = req.params.id;
+      const order = await this.orderService.getOrderById(orderId);
+      res.status(200).json(order);
+    } catch (error) {
+      res.status(404).json({ error: "Pedido não encontrado." });
+    }
+  };
 }
 
 export default OrderController;

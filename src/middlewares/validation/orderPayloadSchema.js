@@ -12,9 +12,9 @@ export const orderPayloadSchema = z
         valorItem: z.number(),
       }),
     ),
-  })
+  }) // Mapping dos dados de entrada para o formato esperado pelo model
   .transform((data) => ({
-    orderId: data.numeroPedido.split("-")[0],
+    orderId: data.numeroPedido,
     value: data.valorTotal,
     creationDate: data.dataCriacao,
     items: data.items.map((item) => ({

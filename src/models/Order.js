@@ -7,8 +7,8 @@ const itemSchema = new Schema(
     quantity: { type: Number, required: true },
     price: { type: Number, required: true },
   },
-  { _id: false }, // Evitar criar um _id para cada item
-); 
+  { _id: false },
+);
 
 // Schema para o pedido. items é um array de itemSchema
 const orderSchema = new Schema({

@@ -10,6 +10,8 @@ class OrderRoutes {
 
   initRoutes() {
     this.router.post("/order", this.orderController.create);
+    
+    this.router.get("/order/:id", this.orderController.get);
   }
 }
 
