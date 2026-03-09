@@ -11,6 +11,13 @@ class OrderService {
     if (orderData.items) {
       orderData.value = this.calculateTotal(orderData.items);
     }
+
+    // verificar se já existe um pedido com o mesmo orderId
+    const existing = await Order.findOne({ orderId: orderData.orderId });
+    if (existing) {
+      throw new Error("Pedido já existe.");
+    }
+
     const order = await Order.create(orderData);
     return order;
   }
@@ -41,6 +48,14 @@ class OrderService {
       throw new Error("Pedido não encontrado.");
     }
     return order;
+  }
+
+  async deleteOrder(orderId) {
+    const result = await Order.deleteOne({ orderId });
+    if (result.deletedCount === 0) {
+      throw new Error("Pedido não encontrado.");
+    }
+    return true;
   }
 }
 

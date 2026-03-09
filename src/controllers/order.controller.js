@@ -47,7 +47,7 @@ class OrderController {
     try {
       const parsedData = orderUpdatePayloadSchema.parse(req.body);
       const orderId = req.params.id;
-      
+
       // garantir que o orderId passado via parâmetro seja usado para a edição
       parsedData.orderId = orderId;
       const updatedOrder = await this.orderService.updateOrder(
@@ -63,6 +63,17 @@ class OrderController {
       } else {
         res.status(500).json({ error: "Internal Server Error" });
       }
+    }
+  };
+
+  delete = async (req, res) => {
+    try {
+      const orderId = req.params.id;
+      await this.orderService.deleteOrder(orderId);
+      res.status(204).send();
+      return "Pedido deletado com sucesso.";
+    } catch (error) {
+      res.status(404).json({ error: "Pedido não encontrado." });
     }
   };
 }
