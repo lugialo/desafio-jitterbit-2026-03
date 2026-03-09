@@ -1,8 +1,8 @@
 # Desafio Jitterbit - API de Pedidos
 
-Este repositório contém a solução para o teste teórico da Jitterbit. A aplicação é uma API REST simples em Node.js para
+Este repositório contém a solução para o teste da Jitterbit. A aplicação é uma API REST simples em Node.js para
 criação, leitura, atualização e exclusão de pedidos, com armazenamento em
-MongoDB e autenticação de rotas via JWT.
+MongoDB e autenticação de rotas via JWT. A arquitetura do projeto segue princípios de orientação a objetos e está organizada em camadas, incluindo controllers, services e models, com o objetivo de promover melhor separação de responsabilidades.
 
 ## Como executar
 
@@ -27,11 +27,12 @@ MongoDB e autenticação de rotas via JWT.
    JWT_SECRET=<segredo>
    FRONTEND_URL=http://localhost:3000
    ```
+   (você também pode copiar o .env.example, se preferir)
 5. Inicie o servidor em modo desenvolvimento:
    ```bash
    npm run dev
    ```
-6. Acesse a documentação em: [http://localhost:3333/docs](http://localhost:3333/docs) |
+6. A documentação pode ser acessada em: [http://localhost:3333/docs](http://localhost:3333/docs) |
 
 > Para rotas protegidas, inclua header
 > `Authorization: Bearer <token>` obtido em `/auth`.
