@@ -14,6 +14,8 @@ class OrderRoutes {
     this.router.get("/order/list", this.orderController.list);
 
     this.router.get("/order/:id", this.orderController.get);
+
+    this.router.put("/order/:id", this.orderController.update);
   }
 }
 
