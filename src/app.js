@@ -14,6 +14,7 @@ class App {
 
   initRoutes() {
     const routes = new Routes();
+    this.app.use(routes.authRoutes);
     this.app.use(routes.orderRoutes);
   }
 
