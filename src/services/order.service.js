@@ -1,7 +1,7 @@
 import Order from "../models/Order.js";
 
 class OrderService {
-  // Calcula o valor total do pedido coms
+  // Calcula o valor total do pedido com base nos itens (preço * quantidade)
   calculateTotal(items) {
     return items.reduce((sum, i) => sum + i.price * i.quantity, 0);
   }

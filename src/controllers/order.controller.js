@@ -5,6 +5,8 @@ import {
   orderUpdatePayloadSchema,
 } from "../middlewares/validation/orderPayloadSchema.js";
 
+// Controller responsável por receber as requisições HTTP dos pedidos,
+// validar o payload via Zod e delegar a lógica de negócio ao OrderService.
 class OrderController {
   constructor() {
     this.orderService = new OrderService();
@@ -18,6 +20,8 @@ class OrderController {
     } catch (error) {
       if (error instanceof z.ZodError) {
         res.status(400).json({ errors: error.issues });
+      } else if (error.message === "Pedido já existe.") {
+        res.status(409).json({ error: error.message });
       } else {
         res.status(500).json({ error: "Internal Server Error" });
       }
@@ -71,7 +75,6 @@ class OrderController {
       const orderId = req.params.id;
       await this.orderService.deleteOrder(orderId);
       res.status(204).send();
-      return "Pedido deletado com sucesso.";
     } catch (error) {
       res.status(404).json({ error: "Pedido não encontrado." });
     }

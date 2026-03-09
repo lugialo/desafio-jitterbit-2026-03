@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
+import swaggerUi from "swagger-ui-express";
 import Routes from "./routes/index.js";
+import { swaggerSpec } from "./config/swagger.js";
 
 class App {
   constructor() {
@@ -14,6 +16,7 @@ class App {
 
   initRoutes() {
     const routes = new Routes();
+    this.app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
     this.app.use(routes.authRoutes);
     this.app.use(routes.orderRoutes);
   }

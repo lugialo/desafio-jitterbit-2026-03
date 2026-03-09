@@ -2,17 +2,24 @@ import { z } from "zod";
 
 export const orderPayloadSchema = z
   .object({
-    numeroPedido: z.string(),
+    numeroPedido: z.string().min(1, "numeroPedido não pode ser vazio"),
     // total enviado pelo cliente é ignorado; calculado no serviço
     valorTotal: z.number().optional(),
     dataCriacao: z.coerce.date(),
-    items: z.array(
-      z.object({
-        idItem: z.string(),
-        quantidadeItem: z.number(),
-        valorItem: z.number(),
-      }),
-    ),
+    items: z
+      .array(
+        z.object({
+          idItem: z.string().min(1, "idItem não pode ser vazio"),
+          quantidadeItem: z
+            .number()
+            .int()
+            .positive("quantidadeItem deve ser um número inteiro"),
+          valorItem: z
+            .number()
+            .positive("valorItem deve ser um número positivo"),
+        }),
+      )
+      .min(1, "O pedido deve conter ao menos 1 item"),
   }) // Mapping dos dados de entrada para o formato esperado pelo model
   .transform((data) => ({
     orderId: data.numeroPedido,
@@ -28,18 +35,27 @@ export const orderPayloadSchema = z
 // Schema para update do pedido
 export const orderUpdatePayloadSchema = z
   .object({
-    numeroPedido: z.string().optional(),
+    numeroPedido: z
+      .string()
+      .min(1, "numeroPedido não pode ser vazio")
+      .optional(),
     // O valorTotal é sempre calculado com base nos itens
     valorTotal: z.number().optional(),
     dataCriacao: z.coerce.date().optional(),
     items: z
       .array(
         z.object({
-          idItem: z.string(),
-          quantidadeItem: z.number(),
-          valorItem: z.number(),
+          idItem: z.string().min(1, "idItem não pode ser vazio"),
+          quantidadeItem: z
+            .number()
+            .int()
+            .positive("quantidadeItem deve ser um inteiro positivo"),
+          valorItem: z
+            .number()
+            .positive("valorItem deve ser um número positivo"),
         }),
       )
+      .min(1, "O pedido deve conter ao menos 1 item")
       .optional(),
   })
   .transform((data) => {

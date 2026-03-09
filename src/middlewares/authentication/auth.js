@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
 
+// Middleware de autenticação JWT.
+// Verifica o header Authorization (Bearer <token>) em todas as rotas protegidas.
 export class AuthMiddleware {
   static verify(req, res, next) {
     const authHeader = req.headers.authorization;
@@ -10,6 +12,7 @@ export class AuthMiddleware {
         .json({ error: "Token de autenticação não fornecido." });
     }
 
+    // Extrai o token após "Bearer "
     const [, token] = authHeader.split(" ");
 
     try {

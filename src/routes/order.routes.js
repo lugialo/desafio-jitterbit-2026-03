@@ -2,6 +2,7 @@ import { Router } from "express";
 import OrderController from "../controllers/order.controller.js";
 import { AuthMiddleware } from "../middlewares/authentication/auth.js";
 
+// Rotas de pedidos — todas protegidas por autenticação JWT
 class OrderRoutes {
   constructor() {
     this.orderController = new OrderController();
